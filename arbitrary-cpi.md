@@ -189,7 +189,7 @@ use other_program::program::OtherProgram;
 
 ```typescript
 it("Insecure instructions allow attacker to win every time", async () => {
-    // Initialize player one with real metadata program
+    // Ініціалізуємо гравця з реальними метаданими
     await gameplayProgram.methods
       .createCharacterInsecure()
       .accounts({
@@ -199,7 +199,7 @@ it("Insecure instructions allow attacker to win every time", async () => {
       .signers([playerOne])
       .rpc()
 
-    // Initialize attacker with fake metadata program
+    // Ініціалізуємо хакера з його фальшивими метаданими
     await gameplayProgram.methods
       .createCharacterInsecure()
       .accounts({
@@ -209,7 +209,7 @@ it("Insecure instructions allow attacker to win every time", async () => {
       .signers([attacker])
       .rpc()
 
-    // Fetch both player's metadata accounts
+    // Отримуємо дані акаунту обидвох гравців
     const [playerOneMetadataKey] = getMetadataKey(
       playerOne.publicKey,
       gameplayProgram.programId,
@@ -230,11 +230,11 @@ it("Insecure instructions allow attacker to win every time", async () => {
       attackerMetadataKey
     )
 
-    // The regular player should have health and power between 0 and 20
+    // Звичайний гравець повинен мати здоров'я від 0 до 20
     expect(playerOneMetadata.health).to.be.lessThan(20)
     expect(playerOneMetadata.power).to.be.lessThan(20)
 
-    // The attacker will have health and power of 255
+    // Хакер буде мати силу на здоровья у 255
     expect(attackerMetadata.health).to.equal(255)
     expect(attackerMetadata.power).to.equal(255)
 })
@@ -284,7 +284,7 @@ pub struct CreateCharacterSecure<'info> {
         seeds::program = metadata_program.key(),
         bump,
     )]
-    /// CHECK: manual checks
+    /// Перевірки
     pub metadata_account: AccountInfo<'info>,
     pub metadata_program: Program<'info, CharacterMetadata>,
     pub system_program: Program<'info, System>,
@@ -365,3 +365,4 @@ it("Secure character creation doesn't allow fake program", async () => {
 ## Завершили лабораторну роботу?
 
 Завантажте свій код на GitHub і [поділіться своїми враженнями від цього уроку](https://form.typeform.com/to/IPH0UGz7#answers-lesson=5bcaf062-c356-4b58-80a0-12cca99c29b0)!
+
